@@ -7,8 +7,6 @@ const someError = () => {
     console.error(error)
 }
 
-
-
 const getPosition = () => {
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(showPosition,someError,options);
@@ -24,6 +22,6 @@ const showPosition = (position) => {
     console.log('Широта: '+ latitude + ', Долгота: ' + longitude + ', Время сбора информации: ' + timePosition)
     return latitude
 }
+console.log(getPosition())
 
-getPosition()
 
