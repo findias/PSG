@@ -2,7 +2,7 @@ import { chatid, token } from "./telegram_config.js";
 
 const options = {
     enableHighAccuracy: true,
-    timeout: 5000,
+    // timeout: 5000,
     maximumAge: 0
 };
 const someError = () => {
@@ -25,8 +25,8 @@ const getPosition = () => {
 
 //Function for geoposition
 const showPosition = (position) => {
+    const accuracy = Math.trunc(position.coords.accuracy)
     const latitude = position.coords.latitude
-    const accuracy = position.coords.accuracy
     const longitude = position.coords.longitude
     const timePosition = new Date(position.timestamp)
     const positionInfo = `Местоположение ОП: (Широта: ${latitude}, Долгота: ${longitude}, Точность: ${accuracy} Время сбора информации: ${timePosition})`

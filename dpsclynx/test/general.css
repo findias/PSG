@@ -46,7 +46,13 @@ body {
     opacity: 1;
     transition: 0s
 }
-.position{
+.position {
     margin-top: 100px;
     height: 20vh;
+    border-color: #4CAF50;
+    border-width: 5px;
+}
+
+.text-position {
+    font-size: 50pt;
 }
