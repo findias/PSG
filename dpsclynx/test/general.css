@@ -10,13 +10,13 @@ body {
 
 .button {
     position: relative;
-    margin-top: auto;
+    margin-top: 100px;
     background-color: #4CAF50;
     border: none;
     font-size: 50px;
     color: #FFFFFF;
-    padding: 40px;
-    width: 500px;
+    padding: 100px;
+    width: 700px;
     text-align: center;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
@@ -47,7 +47,7 @@ body {
     transition: 0s
 }
 .position {
-    margin-top: 100px;
+    margin-top: 50px;
     height: 20vh;
     border-color: #4CAF50;
     border-width: 5px;
@@ -55,4 +55,8 @@ body {
 
 .text-position {
     font-size: 50pt;
+}
+
+#textInstruction{
+    text-align: center;
 }

