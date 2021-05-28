@@ -5,6 +5,9 @@ body {
     place-items: center;
     background-color: #FFFFFF;
 }
+#textInstruction {
+    font-size: 40pt;
+}
 
 /*Button*/
 
@@ -25,6 +28,8 @@ body {
     overflow: hidden;
     cursor: pointer;
     border-radius: 40px;
+    transition-property: width, height;
+    transition-delay: 0s, 3s;
 }
 
 .button:after {

