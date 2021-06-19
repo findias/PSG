@@ -1,18 +1,19 @@
+// author Konstantin Kovalev
 import { chatid, token } from "./telegram_config.js";
 
 const telegaMessageLink = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatid}`
 const telegaLocationLink = `https://api.telegram.org/bot${token}/sendLocation?chat_id=${chatid}`
-const options = {
-    enableHighAccuracy: true,
-    timeout: 8000,
-    maximumAge: 0
-};
 
 const textAccuracy = document.querySelector('#accuracy')
 const textLatitude = document.querySelector('#latitude')
 const textLongitude = document.querySelector('#longitude')
 
 //Geoposition metod
+const options = {
+    enableHighAccuracy: true,
+    timeout: 8000,
+    maximumAge: 0
+};
 
 const someError = (err) => {
 
@@ -39,13 +40,6 @@ const someError = (err) => {
     }
 }
 
-const getPosition = () => {
-    if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition,someError,options);
-    } else {
-        alert("Версия вашего браузера не позволяет определить ваше местоположение");
-    }
-}
 
 //Function for geoposition
 const showPosition = (position) => {
@@ -53,7 +47,7 @@ const showPosition = (position) => {
     const latitude = position.coords.latitude
     const accuracy = Math.trunc(position.coords.accuracy)
     const timePosition = new Date(position.timestamp)
-    const positionInfo = `Местоположение ОП: (Широта: ${latitude}, Долгота: ${longitude}, Точность: ${accuracy} Время сбора информации: ${timePosition})`
+    const positionInfo = `Местоположение ОП:%0AШирота: ${latitude};%0AДолгота: ${longitude};%0AТочность: ${accuracy};%0AВремя данных: ${timePosition}`
 
     $.ajax({
         type: "POST",
@@ -70,6 +64,15 @@ const showPosition = (position) => {
 
 }
 
+const getPosition = () => {
+    if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition,someError,options);
+    } else {
+        alert("Версия вашего браузера не позволяет определить ваше местоположение");
+    }
+}
+
+//Timing for geolocation
 const intervalPosition = setInterval(() => {
     getPosition()
 }, 10000);
@@ -78,7 +81,7 @@ setTimeout(() => {
     clearInterval(intervalPosition)
 },50000)
 
-//Battery
+//Battery Inform
 
 const getBattery = () => {
     if (navigator.getBattery) {
