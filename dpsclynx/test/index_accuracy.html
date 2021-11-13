@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Geolocation system of the search and rescue squad "Lynx"</title>
+    <link href="timer.css" type="text/css" rel="stylesheet" />
+    <link href="general.css" type="text/css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!--<script src="jquery.min.js"></script>-->
+
+</head>
+<body>
+
+<h1 id = textInstruction> Включите "Местоположение" на телефоне и при запросе данных со страницы нажмите "Разрешить".</h1>
+
+<div id="timer"></div>
+<div id="div-button">
+<button  id="button-hand-position" class="button"> НАЖМИ </button>
+</div>
+<div class="position">
+    <h2 id="latitude" class="text-position"></h2>
+    <h2 id="longitude"class="text-position"></h2>
+    <h2 id="accuracy" class="text-position"></h2>
+</div>
+
+
+<script type="module" src="app.js"></script>
+<script type="module" src="timer.js"></script>
+
+</body>
+</html>
