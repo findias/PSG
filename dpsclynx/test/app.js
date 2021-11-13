@@ -47,7 +47,7 @@ const showPosition = (position) => {
     const latitude = position.coords.latitude
     const accuracy = Math.trunc(position.coords.accuracy)
     const timePosition = new Date(position.timestamp)
-    const positionInfo = `ИЗМЕНЕННАЯ СИСТЕМА ТОЧНОСТИ%0AМестоположение ОП:%0AШирота: ${latitude};%0AДолгота: ${longitude};%0AТочность: ${accuracy};%0AВремя данных: ${timePosition}`
+    const positionInfo = `Местоположение ОП:%0AШирота: ${latitude};%0AДолгота: ${longitude};%0AТочность: ${accuracy};%0AВремя данных: ${timePosition}`
 
     $.ajax({
         type: "POST",
