@@ -10,7 +10,7 @@ const textLongitude = document.querySelector('#longitude')
 
 //Geoposition metod
 const options = {
-    enableHighAccuracy: true,
+    enableHighAccuracy: false,
     timeout: 8000,
     maximumAge: 0
 };
@@ -47,7 +47,7 @@ const showPosition = (position) => {
     const latitude = position.coords.latitude
     const accuracy = Math.trunc(position.coords.accuracy)
     const timePosition = new Date(position.timestamp)
-    const positionInfo = `Местоположение ОП:%0AШирота: ${latitude};%0AДолгота: ${longitude};%0AТочность: ${accuracy};%0AВремя данных: ${timePosition}`
+    const positionInfo = `ТЕСТОВАЯ ССЫЛКА С ИЗМЕНЕННЫМ ОПРЕДЕЛЕНИЕМ ТОЧНОСТИ%0AМестоположение ОП:%0AШирота: ${latitude};%0AДолгота: ${longitude};%0AТочность: ${accuracy};%0AВремя данных: ${timePosition}`
 
     $.ajax({
         type: "POST",
